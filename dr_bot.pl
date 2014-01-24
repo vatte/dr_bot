@@ -14,7 +14,7 @@ my @sentences = (
     "vuoroesimies huusi jo kaukaa",
     "ajojahti!",
     "hain eväät hesburgerista",
-    "täällä painetaan hommia että espanjan pankit saa rahaa!"
+    "täälä painetaan hommia että espanjan pankit saa rahaa!"
 );
 
 my $frequency = 5; #say something with 1/frequency probability
