@@ -14,10 +14,14 @@ my @sentences = (
     "vuoroesimies huusi jo kaukaa",
     "ajojahti!",
     "hain eväät hesburgerista",
-    "täälä painetaan hommia että espanjan pankit saa rahaa!"
+    "täälä painetaan hommia että espanjan pankit saa rahaa!",
+    "nyt nussitaan!",
+    "huhhuh",
+    "(:))",
+    "mittee työ?"
 );
 
-my $frequency = 5; #say something with 1/frequency probability
+my $frequency = 15; #say something with 1/frequency probability
 
 #the public commands
 #own nick
@@ -62,5 +66,16 @@ sub bootstrap {
      }
 }
 
+sub private_msg {
+    my ($server, $msg, $nick, $address) = @_;
+    if( $nick eq "om" ) {
+        $server->command("MSG #testataanbottiakohta $msg");
+    }
+    if( $nick eq "dr_dom" ) {
+        $server->command("MSG #terassillekohta $msg");
+    }
+}
+
 
 Irssi::signal_add_last('message public', 'bootstrap');
+Irssi::signal_add_last('message private', 'private_msg');
