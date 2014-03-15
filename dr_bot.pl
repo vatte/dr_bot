@@ -21,7 +21,7 @@ my @sentences = (
     "mittee työ?"
 );
 
-my $frequency = 15; #say something with 1/frequency probability
+my $frequency = 50; #say something with 1/frequency probability
 
 #the public commands
 #own nick
@@ -44,16 +44,44 @@ sub bootstrap {
                     $server->command("MSG $target $nick: sitä just.");
 		}
                 else {
-                    $whatword =~ s/\p{Punct}//g;
-                    if(index($msg, 'jo') != -1) {
-                        $server->command("MSG $target $nick: ai vasta $whatword?");
-                    }
-                    elsif(index($msg, 'vasta') != -1) {
-                        $server->command("MSG $target $nick: eiku $whatword jo!");
-                    }
-                    else {
-                        $server->command("MSG $target $nick: mitä " . $whatword . "kin nyt on");
-                    }
+                     $kontti = "";
+                     for($i = 1; $i < @words; $i++) {
+                         $word = @words[$i];
+                         $word =~ s/\p{Punct}//g;
+                         $word =~ m/[cdfghjklmnpqrstvwxyz]/;
+                         $index = $-[0];
+                         if($index == 0) {
+                             $tmp = substr($word, 1);
+                             $tmp =~ m/[cdfghjklmnpqrstvwxyz]/;
+                             $index = $-[0] + 1;
+                             if($-[0] == 0) {
+                                  $tmp = substr($tmp, 1);
+                                  $tmp =~ m/[cdfghjklmnpqrstvwxyz]/;
+                                  $index = $-[0]+2;
+                             }
+                             if($index == 0){
+                                  $index = length($word);
+                             }
+
+                         }                          
+
+
+                         $beginning = substr($word, 0, $index);
+                         $ending = substr($word, $index);
+                         $kontti = $kontti . "ko" . $ending . " " . $beginning . "ntti ";
+                     }
+                     $server->command("MSG $target $nick: $kontti");
+
+#                    $whatword =~ s/\p{Punct}//g;
+#                    if(index($msg, 'jo') != -1) {
+#                        $server->command("MSG $target $nick: ai vasta $whatword?");
+#                    }
+#                    elsif(index($msg, 'vasta') != -1) {
+#                        $server->command("MSG $target $nick: eiku $whatword jo!");
+#                    }
+#                    else {
+#                        $server->command("MSG $target $nick: mitä " . $whatword . "kin nyt on");
+#                    }
                 }
             }
             else {
