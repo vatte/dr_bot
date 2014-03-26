@@ -1,6 +1,6 @@
 #http://stackoverflow.com/questions/7863746/perl-irssi-scripting-how-to-send-msg-to-a-specific-channel
 #name of the channels where this feature will be used
-my @channels  = ("terassillekohta", "testataanbottiakohta");
+my @channels  = ("#terassillekohta", "#testataanbottiakohta", "!inkubio");
 
 my @sentences = (
     "tuntuu hullulta",
@@ -36,7 +36,7 @@ sub bootstrap {
     sleep(int(rand(5)) + 1);
 
     foreach my $channel (@channels) {
-        if ( $target eq "#".$channel) {
+        if ( $target eq $channel) {
             if (index($msg, $ownnick) != -1) {
 		@words = split(' ', $msg);
                 $whatword = @words[int(rand(@words))];
