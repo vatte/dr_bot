@@ -59,6 +59,10 @@ sub bootstrap {
             $min_words = @words[1];
             $server->command("MSG $target min_words on nyt $min_words, ja horinaa on " . scalar @horinaa);
         }
+        elsif($flag eq "max_words") {
+            $max_words = @words[1];
+            $server->command("MSG $target max_words on nyt $max_words, ja horinaa on " . scalar @horinaa);
+        }
         else {
             $server->command("MSG $target tuntematon komento");
         }
@@ -66,7 +70,7 @@ sub bootstrap {
     elsif(($nick eq "dr_dom" ) && ( $target eq "#terassillekohta" ) ) {
         @words = split(' ', $msg);
         push @horinaa, @words;
-        while(length(@horinaa) > $max_words ) {
+        while(scalar @horinaa > $max_words ) {
             shift @horinaa;
         }
         $horistaan_taas = 300000 + int(rand(1800000));
